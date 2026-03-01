@@ -3,10 +3,470 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>テスト_3-1</title>
+  <meta name="color-scheme" content="dark light" />
+  <title>test_3-1</title>
+  <meta name="description" content="Minimal, professional landing page hosted on GitHub Pages." />
+
+  <!-- System font stack (fast, pro) -->
+  <style>
+    :root{
+      --bg: #0b1020;
+      --panel: rgba(255,255,255,.06);
+      --panel2: rgba(255,255,255,.04);
+      --text: rgba(255,255,255,.92);
+      --muted: rgba(255,255,255,.68);
+      --hair: rgba(255,255,255,.10);
+      --accent: #7c3aed; /* violet */
+      --accent2:#22c55e; /* green */
+      --shadow: 0 18px 50px rgba(0,0,0,.45);
+      --radius: 18px;
+      --max: 1040px;
+    }
+
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0;
+      color:var(--text);
+      font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans JP", "Hiragino Kaku Gothic ProN", "Yu Gothic", "Meiryo", Arial, "Apple Color Emoji","Segoe UI Emoji";
+      background:
+        radial-gradient(900px 600px at 12% 15%, rgba(124,58,237,.22), transparent 60%),
+        radial-gradient(800px 520px at 90% 18%, rgba(34,197,94,.12), transparent 55%),
+        radial-gradient(1000px 700px at 40% 120%, rgba(56,189,248,.12), transparent 60%),
+        var(--bg);
+      overflow-x:hidden;
+    }
+
+    /* subtle grid */
+    .grid{
+      position:fixed; inset:0;
+      background:
+        linear-gradient(to right, rgba(255,255,255,.05) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255,255,255,.05) 1px, transparent 1px);
+      background-size: 56px 56px;
+      mask-image: radial-gradient(60% 55% at 50% 20%, black 55%, transparent 100%);
+      pointer-events:none;
+      opacity:.25;
+    }
+
+    a{ color:inherit; text-decoration:none; }
+    a:hover{ text-decoration:underline; text-underline-offset: 4px; }
+
+    .wrap{
+      width:min(var(--max), calc(100% - 48px));
+      margin:0 auto;
+      padding: 26px 0 52px;
+      position:relative;
+    }
+
+    header{
+      display:flex; align-items:center; justify-content:space-between;
+      gap:18px;
+      padding: 14px 0 10px;
+    }
+
+    .brand{
+      display:flex; align-items:center; gap:12px;
+      letter-spacing:.2px;
+    }
+
+    .logo{
+      width:38px; height:38px; border-radius: 12px;
+      background:
+        radial-gradient(12px 12px at 30% 25%, rgba(255,255,255,.35), transparent 60%),
+        linear-gradient(135deg, rgba(124,58,237,.95), rgba(34,197,94,.72));
+      box-shadow: 0 10px 28px rgba(124,58,237,.20);
+      border: 1px solid rgba(255,255,255,.14);
+    }
+
+    .brand .name{
+      display:flex; flex-direction:column; line-height:1.1;
+    }
+    .brand .name strong{ font-size: 14px; font-weight: 700; }
+    .brand .name span{ font-size: 12px; color: var(--muted); }
+
+    nav{
+      display:flex; gap:14px; align-items:center;
+      color: var(--muted);
+      font-size: 13px;
+    }
+    nav a{
+      padding: 8px 10px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+    }
+    nav a:hover{
+      border-color: rgba(255,255,255,.14);
+      background: rgba(255,255,255,.04);
+      text-decoration:none;
+    }
+
+    /* hero */
+    .hero{
+      margin-top: 28px;
+      display:grid;
+      grid-template-columns: 1.25fr .75fr;
+      gap: 22px;
+      align-items:stretch;
+    }
+
+    .card{
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, var(--panel), var(--panel2));
+      border: 1px solid rgba(255,255,255,.10);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+
+    .hero-main{
+      padding: 26px 26px 22px;
+      position:relative;
+    }
+
+    .badge{
+      display:inline-flex;
+      gap:8px; align-items:center;
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      color: rgba(255,255,255,.80);
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.04);
+      user-select:none;
+    }
+    .dot{
+      width:8px; height:8px; border-radius:50%;
+      background: var(--accent2);
+      box-shadow: 0 0 0 4px rgba(34,197,94,.15);
+    }
+
+    h1{
+      margin: 14px 0 10px;
+      font-size: clamp(28px, 4vw, 44px);
+      line-height: 1.08;
+      letter-spacing: -0.02em;
+    }
+
+    .sub{
+      margin: 0 0 18px;
+      color: var(--muted);
+      font-size: 14.5px;
+      line-height: 1.6;
+      max-width: 66ch;
+    }
+
+    .cta{
+      display:flex; gap:12px; flex-wrap:wrap;
+      margin-top: 16px;
+      align-items:center;
+    }
+    .btn{
+      display:inline-flex; align-items:center; gap:10px;
+      padding: 11px 14px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.04);
+      font-size: 13.5px;
+      color: rgba(255,255,255,.90);
+      text-decoration:none;
+      transition: transform .15s ease, background .15s ease, border-color .15s ease;
+      will-change: transform;
+    }
+    .btn:hover{
+      transform: translateY(-1px);
+      background: rgba(255,255,255,.06);
+      border-color: rgba(255,255,255,.22);
+      text-decoration:none;
+    }
+    .btn.primary{
+      border-color: rgba(124,58,237,.55);
+      background: linear-gradient(135deg, rgba(124,58,237,.95), rgba(124,58,237,.45));
+      box-shadow: 0 14px 30px rgba(124,58,237,.22);
+    }
+    .btn.primary:hover{
+      border-color: rgba(124,58,237,.75);
+      background: linear-gradient(135deg, rgba(124,58,237,1), rgba(124,58,237,.50));
+    }
+
+    .icon{
+      width:16px; height:16px; display:inline-block;
+    }
+
+    /* side card */
+    .hero-side{
+      padding: 18px;
+      display:flex;
+      flex-direction:column;
+      gap: 14px;
+    }
+    .meta{
+      display:flex; flex-direction:column; gap: 10px;
+      padding: 14px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.18);
+    }
+    .meta .row{
+      display:flex; justify-content:space-between; gap: 10px;
+      font-size: 12.5px;
+      color: var(--muted);
+    }
+    .meta .row strong{
+      color: rgba(255,255,255,.84);
+      font-weight: 650;
+    }
+    .pill{
+      display:inline-flex; gap:8px; align-items:center;
+      padding: 8px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.04);
+      color: rgba(255,255,255,.78);
+      width: fit-content;
+    }
+    .pill b{ color: rgba(255,255,255,.90); }
+
+    /* sections */
+    .sections{
+      margin-top: 22px;
+      display:grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 18px;
+    }
+
+    .sec{
+      grid-column: span 6;
+      padding: 18px;
+    }
+    .sec h2{
+      margin: 0 0 8px;
+      font-size: 14px;
+      letter-spacing: .02em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.80);
+    }
+    .sec p{
+      margin: 0 0 12px;
+      color: var(--muted);
+      font-size: 13.5px;
+      line-height: 1.6;
+    }
+
+    .list{
+      display:flex; flex-direction:column; gap:10px;
+      margin:0; padding:0;
+      list-style:none;
+    }
+    .item{
+      display:flex; gap:10px; align-items:flex-start;
+      padding: 12px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.16);
+    }
+    .tick{
+      width:18px; height:18px; border-radius: 6px;
+      background: rgba(34,197,94,.14);
+      border: 1px solid rgba(34,197,94,.25);
+      display:flex; align-items:center; justify-content:center;
+      flex: 0 0 auto;
+      margin-top: 1px;
+    }
+
+    footer{
+      margin-top: 28px;
+      display:flex; justify-content:space-between; align-items:center;
+      color: var(--muted);
+      font-size: 12px;
+      border-top: 1px solid rgba(255,255,255,.10);
+      padding-top: 16px;
+      gap: 12px;
+      flex-wrap:wrap;
+    }
+
+    /* fade-in */
+    @media (prefers-reduced-motion: no-preference){
+      .fade{
+        animation: fadeUp .55s ease both;
+      }
+      .fade.delay1{ animation-delay: .06s; }
+      .fade.delay2{ animation-delay: .12s; }
+      .fade.delay3{ animation-delay: .18s; }
+      @keyframes fadeUp{
+        from{ opacity:0; transform: translateY(8px); }
+        to{ opacity:1; transform: translateY(0); }
+      }
+    }
+
+    /* responsive */
+    @media (max-width: 860px){
+      .hero{ grid-template-columns: 1fr; }
+      .sec{ grid-column: span 12; }
+      nav{ display:none; }
+      .wrap{ width:min(var(--max), calc(100% - 32px)); }
+    }
+  </style>
 </head>
+
 <body>
-  <h1>公開できた！</h1>
-  <p>GitHub Pagesで表示中。</p>
+  <div class="grid" aria-hidden="true"></div>
+
+  <div class="wrap">
+    <header class="fade">
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <div class="name">
+          <strong>test_3-1</strong>
+          <span>Minimal landing • GitHub Pages</span>
+        </div>
+      </div>
+
+      <nav aria-label="ページ内リンク">
+        <a href="#overview">概要</a>
+        <a href="#next">次にやること</a>
+        <a href="#links">リンク</a>
+      </nav>
+    </header>
+
+    <main class="hero">
+      <section class="card hero-main fade delay1" id="overview">
+        <div class="badge">
+          <span class="dot" aria-hidden="true"></span>
+          <span>Deployed • Fast • Minimal</span>
+        </div>
+
+        <h1>シンプルに、強く。<br>“作った”が見える入口を。</h1>
+        <p class="sub">
+          これは GitHub Pages で公開している最小構成のランディングです。
+          ここを起点に、プロジェクトの目的・進め方・成果物リンクを整理していきます。
+          <br>（このページは <code>index.html</code> 1枚で動きます）
+        </p>
+
+        <div class="cta">
+          <a class="btn primary" href="https://github.com/reowl0416-bot/test_3-1" target="_blank" rel="noreferrer">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M12 2C6.48 2 2 6.58 2 12.25c0 4.53 2.87 8.37 6.84 9.73.5.1.68-.22.68-.48 0-.24-.01-.88-.01-1.73-2.78.62-3.37-1.37-3.37-1.37-.46-1.2-1.12-1.52-1.12-1.52-.92-.65.07-.64.07-.64 1.02.07 1.56 1.08 1.56 1.08.9 1.6 2.36 1.14 2.94.87.09-.67.35-1.14.64-1.4-2.22-.26-4.56-1.14-4.56-5.07 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.32.1-2.75 0 0 .84-.28 2.75 1.05.8-.23 1.65-.34 2.5-.34.85 0 1.7.12 2.5.34 1.9-1.33 2.75-1.05 2.75-1.05.55 1.43.2 2.49.1 2.75.64.72 1.03 1.63 1.03 2.75 0 3.94-2.34 4.81-4.57 5.07.36.32.68.96.68 1.93 0 1.39-.01 2.5-.01 2.84 0 .27.18.59.69.49A10.2 10.2 0 0 0 22 12.25C22 6.58 17.52 2 12 2Z" fill="currentColor" opacity=".9"/>
+            </svg>
+            リポジトリを見る
+          </a>
+
+          <a class="btn" href="#next">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round" opacity=".9"/>
+            </svg>
+            次のTODOへ
+          </a>
+
+          <a class="btn" href="#links">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M10 14a5 5 0 0 1 0-7l1.2-1.2a5 5 0 0 1 7 7L17 14" stroke="currentColor" stroke-width="2" stroke-linecap="round" opacity=".9"/>
+              <path d="M14 10a5 5 0 0 1 0 7L12.8 18.2a5 5 0 0 1-7-7L7 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" opacity=".9"/>
+            </svg>
+            リンク
+          </a>
+        </div>
+      </section>
+
+      <aside class="card hero-side fade delay2" aria-label="ステータス">
+        <div class="pill"><b>Status</b>：公開中</div>
+
+        <div class="meta">
+          <div class="row"><span>ホスティング</span><strong>GitHub Pages</strong></div>
+          <div class="row"><span>構成</span><strong>index.html（単一）</strong></div>
+          <div class="row"><span>目的</span><strong>入口・整理・リンク集</strong></div>
+          <div class="row"><span>更新</span><strong>Commit で反映</strong></div>
+        </div>
+
+        <div class="meta">
+          <div class="row"><span>次に増やすなら</span><strong>CSS分離 / 画像 / JS</strong></div>
+          <div class="row"><span>軽さ</span><strong>◎</strong></div>
+          <div class="row"><span>拡張性</span><strong>◎</strong></div>
+        </div>
+      </aside>
+    </main>
+
+    <section class="sections">
+      <section class="card sec fade delay2" id="next">
+        <h2>Next steps</h2>
+        <p>“ベテランっぽさ”は、見た目よりも「情報の置き方」で出ます。まずはここを整えるのが最短です。</p>
+        <ul class="list">
+          <li class="item">
+            <div class="tick" aria-hidden="true">✓</div>
+            <div>
+              <div><strong>目的（What）</strong></div>
+              <div style="color:var(--muted); font-size:13px; line-height:1.55;">このリポジトリで何を作るか、1〜2行で固定。</div>
+            </div>
+          </li>
+          <li class="item">
+            <div class="tick" aria-hidden="true">✓</div>
+            <div>
+              <div><strong>使い方（How）</strong></div>
+              <div style="color:var(--muted); font-size:13px; line-height:1.55;">実行コマンド・構成・環境などをREADMEに集約。</div>
+            </div>
+          </li>
+          <li class="item">
+            <div class="tick" aria-hidden="true">✓</div>
+            <div>
+              <div><strong>成果物リンク（Output）</strong></div>
+              <div style="color:var(--muted); font-size:13px; line-height:1.55;">デモURL、スクショ、ドキュメントをここに並べる。</div>
+            </div>
+          </li>
+        </ul>
+      </section>
+
+      <section class="card sec fade delay3" id="links">
+        <h2>Links</h2>
+        <p>このページを「ハブ」にすると、何をやっているかが一瞬で伝わります。</p>
+
+        <ul class="list">
+          <li class="item">
+            <div class="tick" aria-hidden="true">↗</div>
+            <div>
+              <div><strong>公開サイト</strong></div>
+              <div style="color:var(--muted); font-size:13px; line-height:1.55;">
+                <a href="./" title="このサイト">このページ（index.html）</a>
+              </div>
+            </div>
+          </li>
+
+          <li class="item">
+            <div class="tick" aria-hidden="true">↗</div>
+            <div>
+              <div><strong>GitHub リポジトリ</strong></div>
+              <div style="color:var(--muted); font-size:13px; line-height:1.55;">
+                <a href="https://github.com/reowl0416-bot/test_3-1" target="_blank" rel="noreferrer">github.com/reowl0416-bot/test_3-1</a>
+              </div>
+            </div>
+          </li>
+
+          <li class="item">
+            <div class="tick" aria-hidden="true">↗</div>
+            <div>
+              <div><strong>README</strong></div>
+              <div style="color:var(--muted); font-size:13px; line-height:1.55;">
+                <a href="README.md" target="_blank" rel="noreferrer">README.md（オンボーディング/メモ）</a>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </section>
+    </section>
+
+    <footer class="fade delay3">
+      <div>© <span id="y"></span> test_3-1 • Built on GitHub Pages</div>
+      <div style="display:flex; gap:12px; align-items:center;">
+        <span style="display:inline-flex; align-items:center; gap:8px;">
+          <span style="width:8px;height:8px;border-radius:999px;background:rgba(124,58,237,.9);box-shadow:0 0 0 4px rgba(124,58,237,.14)"></span>
+          Minimal • Clear • Fast
+        </span>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    // tiny enhancement (safe)
+    document.getElementById("y").textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
